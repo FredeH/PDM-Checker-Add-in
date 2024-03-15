@@ -48,7 +48,7 @@ namespace PDM_Checker_Add_in
     [Menu((int)Commands.SetupMenu, "Set up add-in", 512)]
     //[Menu((int)Commands.SetupMenu, "Set up add-in")]
     [Name("PDM Checker Add-in")]
-    [Description("Checks integration. Blocks wrong revisions, non-unique filenames, and wrong Part numbers")]
+    [Description("Checks integration. Blocks wrong revisions, non-unique filenames, and wrong Part numbers \n This program uses PDMProfessionalExtensions. PDMProfessionalExtensions is a copyrighted work of Blue Byte Systems, Inc. (R). https://bluebyte.biz")]
     [CompanyName("Company")]
     [AddInVersion(false, 9)]
     [IsTask(false)]
