@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="PDM_Checker_Add_in.RuleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PDM_Checker_Add_in"
+             mc:Ignorable="d" 
+             x:Name="ruleControl"
+             d:DesignHeight="800" d:DesignWidth="400">
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="151*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <ListView Name="RuleList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,47,0,5">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Variable" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox Name="VariableComboBox" ItemsSource="{Binding ElementName=ruleControl, Path=VariableCollection}" Width="70" SelectedValue="{Binding variable}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Condition" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox Name="ConditionComboBox" ItemsSource="{Binding ElementName=ruleControl, Path=ConditionRuleEnumValues}" Width="70" SelectedValue="{Binding condition}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Text" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding ruleText}" Width="60" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Error Message" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding message}" Width="auto" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Delete" Width="auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="35" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Click="DeleteRule">
+                                    <Image Width="20" Height="20" Source="./Images/icon_deleteForever.png" />
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Add Variable Condition" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Click="Btn_AddNewVariableCondition"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Width="auto">
+            <Button Content="OK" Width="74" Click="OK_Click" Height="24" Margin="5,5,5,5"/>
+            <Button Content="Cancel" Width="74" Height="24" Margin="5,5,5,5" Click="CancelBtn"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

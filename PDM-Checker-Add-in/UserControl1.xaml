@@ -1,0 +1,191 @@
+﻿<UserControl x:Class="PDM_Checker_Add_in.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PDM_Checker_Add_in"
+             mc:Ignorable="d" 
+             x:Name="rootElement"
+             d:DesignHeight="600" d:DesignWidth="900">
+    <Grid Background="#FF191919">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="446*"/>
+            <ColumnDefinition Width="235*"/>
+            <ColumnDefinition Width="220*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="42"/>
+        </Grid.RowDefinitions>
+        <ComboBox Name="ChooseWorkflow" HorizontalAlignment="Left" Margin="26,30,0,0" VerticalAlignment="Top" Width="157" DropDownOpened="ChooseWorkflow_DropDownOpened" Height="22"/>
+        <ListView Name="UsedVariables" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="1,30,0,10" Grid.Column="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Use" Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Margin="5, 0" IsChecked="{Binding isUsed }"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Variable" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="5, 0" Text="{Binding Variable}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <CheckBox Name="enableStateChange" Content="Enable state change checks" HorizontalAlignment="Left" Margin="26,88,0,0" VerticalAlignment="Top" Foreground="White" Height="15" Width="164"/>
+        <CheckBox Name="enableCardBtn" Content="Enable Card button" HorizontalAlignment="Left" Margin="26,108,0,0" VerticalAlignment="Top" Foreground="White" Height="15" Width="122"/>
+        <ListView x:Name="skipWhenCopy" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,160,0,10" HorizontalAlignment="Left" Width="194">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Use" Width="40">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Margin="5, 0" IsChecked="{Binding isSkipped}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Variable" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="5, 0" Text="{Binding Variable}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+            <Button x:Name="SaveBtn" Content="Save" Margin="0,5,80,5" Click="Button_Save" Width="63" HorizontalAlignment="Right"/>
+            <Button x:Name="ExitBtn" Content="Exit" Margin="376,5,5,5" Click="Button_Click" RenderTransformOrigin="0.493,0.563" Width="63" HorizontalAlignment="Right"/>
+        </Grid>
+        <Label Content="Variables to skip when copying" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="173"/>
+        <Label Content="Check in workflow" HorizontalAlignment="Left" Margin="26,4,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="106"/>
+        <Label Content="Variables to check" HorizontalAlignment="Left" Margin="1,4,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="2" Height="26" Width="105"/>
+        <TabControl Grid.Column="1">
+            <TabItem Header="States to Check">
+                <Grid Background="#FF313131">
+                    <Label Content="Check only in states" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="115"/>
+                    <ListView x:Name="StatesToCheck" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,29,0,0" Height="227" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Use" Width="40">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding isChecked}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Variable" Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Margin="5, 0" Text="{Binding stateName}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label Content="Ignore non-unique filename in states" HorizontalAlignment="Left" Margin="0,256,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="205"/>
+                    <ListView x:Name="IgnoreFilenameInStates" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,287,0,-2">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Use" Width="40">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding isIgnored}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Variable" Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Margin="5, 0" Text="{Binding stateName}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Ignore state change to">
+                <Grid Background="#FF313131">
+                    <Label Content="Ignore state change to" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" Foreground="White" Height="26" Width="166"/>
+                    <ListView x:Name="IgnoreChangeState" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,29,0,0" Height="227" VerticalAlignment="Top">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Use" Width="40">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding isIgnored}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Variable" Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Margin="5, 0" Text="{Binding stateName}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Variable conditions">
+                <Grid Background="#FF313131">
+                    <ListView Name="VariableConditionList" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,32,0,0" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Variable" Width="auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox ItemsSource="{Binding ElementName=rootElement, Path=VariableCollection}" Name="VariableComboBox" SelectionChanged="VariableComboBox_SelectionChanged" SelectedValue="{Binding variable}" Width="auto" MinWidth="50" Margin="5, 0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Condition" Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding condition}" Width="auto" MinWidth="50" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Rules" Width="auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Width="auto" Height="auto" Click="Btn_EditRules">
+                                                <TextBlock>Edit</TextBlock>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Delete" Width="auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Width="auto" Height="auto" Background="{x:Null}" BorderBrush="{x:Null}" Click="DeleteVariableCondition" Foreground="{x:Null}">
+                                                <Image Width="20" Height="20" Source="./Images/icon_deleteForever.png" />
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="Add new variable rules" HorizontalAlignment="Left" Margin="0,7,0,0" VerticalAlignment="Top" Width="135" BorderBrush="{x:Null}" Click="Btn_AddVariableConditionCheck"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <CheckBox x:Name="CheckDrawingCustomConfig" Content="Check only @ in drawing" HorizontalAlignment="Left" Margin="223,88,0,0" VerticalAlignment="Top" Foreground="White" />
+        <CheckBox x:Name="CheckCustomConfig" Content="Check @ in part and assembly" HorizontalAlignment="Left" Margin="223,111,0,0" VerticalAlignment="Top" Foreground="White" />
+        <Label Content="Extra check settings" HorizontalAlignment="Left" Margin="223,57,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+    </Grid>
+</UserControl>
